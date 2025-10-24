@@ -2,8 +2,8 @@ import tailwindcss from "@tailwindcss/vite";
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  router: {
-    base: "/todoList/",
+  app: {
+    baseURL: "/todoList/",
   },
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
