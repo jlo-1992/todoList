@@ -12,8 +12,7 @@ export const useTodoStore = defineStore(
         id: id++,
         done: false,
         text: item,
-        edit: false,
-        input: item,
+        // input: item,
       });
     };
 
@@ -33,9 +32,13 @@ export const useTodoStore = defineStore(
       }
     };
 
-    const saveEdit = (item) => {
-      item.text = item.input;
-      item.edit = false;
+    const saveEdit = (editData) => {
+      const targetIndex = todoList.value.findIndex(
+        (item) => item.id === editData.id
+      );
+      if (targetIndex > -1) {
+        todoList.value[targetIndex].text = editData.text;
+      }
     };
 
     return {

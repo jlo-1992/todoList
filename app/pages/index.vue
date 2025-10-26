@@ -36,29 +36,19 @@
         </p>
         <ul>
           <li
-            v-for="item in todoList"
-            :key="item.id"
+            v-for="(item, idx) in todoList"
+            :key="idx"
             class="flex justify-between mt-5 items-center"
           >
             <div class="flex items-center justify-center ml-2">
               <input
-                :id="check + item.id"
+                :id="'todo' + idx"
                 v-model="item.done"
                 type="checkbox"
                 class="size-5 cursor-pointer"
                 @click="todoStore.doneItem(item.id)"
               />
-
-              <template v-if="item.edit">
-                <input
-                  v-model="item.input"
-                  type="text"
-                  class="ml-3 p-1"
-                  @keydown.enter="todoStore.saveEdit(item)"
-                  @keydown.esc="cancelEdit(item)"
-                />
-              </template>
-              <label v-else :for="check + item.id">
+              <label :for="'todo' + idx">
                 <del v-if="item.done" class="text-xl ml-3 text-gray-300">{{
                   item.text
                 }}</del>
@@ -72,7 +62,7 @@
                 <Icon
                   name="tabler:pencil"
                   class="size-6 mt-1"
-                  @click="toggleEdit(item)"
+                  @click="openDialog('編輯', item)"
                 />
               </button>
               <button
@@ -92,16 +82,15 @@
           v-if="dialog.open"
           class="absolute p-7 h-45 w-80 rounded-md shadow-2xl z-200 bg-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
         >
-          <h1 class="font-bold text-2xl text-left">新增代辦事項</h1>
-          <form
-            @submit.prevent="addItem(input)"
-            @keydown.enter="addItem(input)"
-          >
+          <h1 class="font-bold text-2xl text-left">{{ action }}代辦事項</h1>
+          <form @submit.prevent="addItem" @keydown.enter="addItem">
             <input
               v-model="input"
               type="text"
               class="border-2 border-gray-300 my-2 w-65 p-2 rounded-sm text-left"
-              placeholder="請輸入代辦事項"
+              :placeholder="
+                action === '編輯' ? editItem.text : '請輸入代辦事項'
+              "
             />
             <div class="text-right">
               <button
@@ -112,7 +101,7 @@
               </button>
               <input
                 type="submit"
-                value="新增"
+                :value="action === '編輯' ? '編輯' : '新增'"
                 class="rounded-md px-3 py-1 cursor-pointer hover:bg-blue-200 hover:text-white text-blue-200 font-bold"
               />
             </div>
@@ -122,7 +111,7 @@
       <button
         class="absolute text-2xl rounded-full bg-blue-300 cursor-pointer text-white font-bold bottom-23 left-1/2 -translate-x-1/2 p-3 px-5 shadow-2xl z-200"
         :class="dialog.open ? 'bg-green-400' : 'bg-blue-300'"
-        @click="openDialog()"
+        @click="openDialog('新增')"
       >
         ＋新增
       </button>
@@ -139,44 +128,40 @@ import { useHead } from "nuxt/app";
 const todoStore = useTodoStore();
 const { todoList } = storeToRefs(todoStore);
 const undoneItem = computed(() => todoList.value.filter((item) => !item.done));
+const action = ref(null);
+const input = ref("");
+const editItem = ref(null);
 
 const check = "check";
 
 const dialog = ref({ open: false });
-const openDialog = () => {
+const openDialog = (move, item = null) => {
   dialog.value.open = true;
+  action.value = move;
+  if (move === "編輯" && item) {
+    input.value = item.text;
+    editItem.value = item;
+  } else {
+    editItem.value = null;
+    input.value = "";
+  }
 };
+
 const closeDialog = () => {
   dialog.value.open = false;
-};
-
-const input = ref("");
-
-const addItem = (item) => {
-  todoStore.addItem(item);
+  action.value = null;
+  editItem.value = null;
   input.value = "";
+};
+
+const addItem = () => {
+  if (action.value === "編輯") {
+    const editData = { id: editItem.value.id, text: input.value };
+    todoStore.saveEdit(editData);
+  } else if (action.value === "新增") {
+    todoStore.addItem(input.value);
+  }
   closeDialog();
-};
-
-// const deleteItem = (id) => {
-//   todoStore.deleteItem(id);
-// };
-
-// const doneItem = (id) => {
-//   todoStore.doneItem(id);
-// };
-
-const toggleEdit = (item) => {
-  item.edit = !item.edit;
-};
-
-// const saveEdit = (item) => {
-//   todoStore.saveEdit(item);
-// };
-
-const cancelEdit = (item) => {
-  item.input = item.text;
-  item.edit = false;
 };
 
 useHead({
