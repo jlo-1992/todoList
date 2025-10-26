@@ -32,7 +32,7 @@
 
         <hr />
         <p class="mt-2 text-right mr-3 text-gray-400">
-          共有 {{ todoList.length }} 個代辦事項
+          共有 {{ undoneItem.length }} 個代辦事項
         </p>
         <ul>
           <li
@@ -46,7 +46,7 @@
                 v-model="item.done"
                 type="checkbox"
                 class="size-5 cursor-pointer"
-                @click="doneItem(item.id)"
+                @click="todoStore.doneItem(item.id)"
               />
 
               <template v-if="item.edit">
@@ -54,7 +54,7 @@
                   v-model="item.input"
                   type="text"
                   class="ml-3 p-1"
-                  @keydown.enter="saveEdit(item)"
+                  @keydown.enter="todoStore.saveEdit(item)"
                   @keydown.esc="cancelEdit(item)"
                 />
               </template>
@@ -81,7 +81,7 @@
                 <Icon
                   name="tabler:trash"
                   class="size-6 mt-1"
-                  @click="deleteItem(item.id)"
+                  @click="todoStore.deleteItem(item.id)"
                 />
               </button>
             </div>
@@ -131,12 +131,14 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { useTodoStore } from "~/stores/todoStore";
 import { storeToRefs } from "pinia";
+import { useHead } from "nuxt/app";
 
 const todoStore = useTodoStore();
 const { todoList } = storeToRefs(todoStore);
+const undoneItem = computed(() => todoList.value.filter((item) => !item.done));
 
 const check = "check";
 
@@ -156,26 +158,30 @@ const addItem = (item) => {
   closeDialog();
 };
 
-const deleteItem = (id) => {
-  todoStore.deleteItem(id);
-};
+// const deleteItem = (id) => {
+//   todoStore.deleteItem(id);
+// };
 
-const doneItem = (id) => {
-  todoStore.doneItem(id);
-};
+// const doneItem = (id) => {
+//   todoStore.doneItem(id);
+// };
 
 const toggleEdit = (item) => {
   item.edit = !item.edit;
 };
 
-const saveEdit = (item) => {
-  todoStore.saveEdit(item);
-};
+// const saveEdit = (item) => {
+//   todoStore.saveEdit(item);
+// };
 
 const cancelEdit = (item) => {
   item.input = item.text;
   item.edit = false;
 };
+
+useHead({
+  title: "首頁",
+});
 </script>
 
 <style>

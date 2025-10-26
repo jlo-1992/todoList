@@ -3,4 +3,10 @@
   <NuxtPage />
 </template>
 
-<script setup></script>
+<script setup>
+useHead({
+  titleTemplate: (titleChunk) => {
+    return titleChunk ? `${titleChunk} - TODOLIST` : "TODOLIST";
+  },
+});
+</script>

@@ -49,7 +49,6 @@ export const useTodoStore = defineStore(
   },
   {
     persist: {
-      // storage: localStorage,
       key: "todoList",
       pick: ["todoList"],
     },

@@ -104,6 +104,7 @@ import { ref, onMounted } from "vue";
 import ghostImg from "~/assets/images/ghost.jpg";
 import dynastyImg from "~/assets/images/dynasty.jpg";
 import noDadImg from "~/assets/images/noDad.jpg";
+import { useHead } from "nuxt/app";
 
 const containerRef = ref(null);
 const slides = ref(Array.from({ length: 3 }));
@@ -122,6 +123,10 @@ const openDialog = (item) => {
 const closeDialog = () => {
   dialog.value.open = false;
 };
+
+useHead({
+  title: "產品",
+});
 
 const products = [
   {
