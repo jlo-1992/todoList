@@ -12,7 +12,6 @@ export const useTodoStore = defineStore(
         id: id++,
         done: false,
         text: item,
-        // input: item,
       });
     };
 
