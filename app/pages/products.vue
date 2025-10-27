@@ -1,27 +1,11 @@
 <template>
   <div class="min-h-screen flex items-center justify-center bg-gray-200">
     <div class="relative">
-      <div class="grid grid-cols-3 -m-1.5">
-        <button
-          class="bg-blue-300 rounded-md px-3 py-1 m-2 cursor-pointer hover:bg-blue-200 text-white font-bold"
-        >
-          <NuxtLink to="/">代辦清單</NuxtLink>
-        </button>
-        <button
-          class="bg-blue-300 rounded-md px-3 py-1 m-2 cursor-pointer hover:bg-blue-200 text-white font-bold"
-        >
-          <NuxtLink to="/products">產品頁面</NuxtLink>
-        </button>
-        <button
-          class="bg-blue-300 rounded-md px-3 py-1 m-2 cursor-pointer hover:bg-blue-200 text-white font-bold"
-        >
-          <NuxtLink to="/products">投票頁面</NuxtLink>
-        </button>
-      </div>
+      <MenuBar />
       <ClientOnly>
         <swiper-container ref="containerRef" class="max-w-md">
           <swiper-slide
-            v-for="(item, idx) in productsData"
+            v-for="(item, idx) in products"
             :key="idx"
             class="rounded-sm shadow-lg bg-gray-100 mt-5 mb-10"
           >
@@ -30,7 +14,7 @@
               <div class="bg-white py-9">
                 <img
                   class="w-full h-60 object-contain"
-                  :src="base + item.img.replace(/^\/+/, '')"
+                  :src="item.img"
                   :alt="item.title"
                 />
               </div>
@@ -101,19 +85,18 @@
 <script setup>
 import { ref, onMounted } from "vue";
 
-import { useHead, useBase } from "nuxt/app";
+import { useHead } from "nuxt/app";
 
 import ghostImg from "~/assets/images/ghost.jpg";
 import dynastyImg from "~/assets/images/dynasty.jpg";
 import noDadImg from "~/assets/images/noDad.jpg";
 
-const { data: productsData } = await useFetch("/api/products");
+// const { data: productsData } = await useFetch("/api/products");
 
 const containerRef = ref(null);
 const slides = ref(Array.from({ length: 3 }));
 const swiper = useSwiper(containerRef, { loop: true });
 const chosenBook = ref(null);
-const base = useBase();
 
 onMounted(() => {
   console.log(swiper.instance);
@@ -132,38 +115,38 @@ useHead({
   title: "產品",
 });
 
-// const products = [
-//   {
-//     img: dynastyImg,
-//     title: "明朝",
-//     author: "駱以軍",
-//     content:
-//       "「這是我的夢外之悲，或可稱之為：科幻版的《牡丹亭》。」機器人經歷上萬年、甚至數十萬年在無垠宇宙中的漂流，最後登陸某顆遙遠孤絕的行星。再以預存的大數據資料提煉這顆星球之金屬，開始複製與自己相同的機器人，重新啟動、覆蓋、繁殖那個曾經栩栩如生存在過 ，黑暗、變態、幻美，層層纏縛又渴望自由的文明——名為「明朝」之星球。",
-//     hashTag1: "#長篇小說",
-//     hashTag2: "#連載中",
-//     hashTag3: "#科幻科技",
-//   },
-//   {
-//     img: noDadImg,
-//     title: "無父之城",
-//     author: "陳雪",
-//     content:
-//       "這是一座父親缺席的城，一個人的消失與離開有各種可能與結果。有些祕密，你甚至對自己也不會說出口。父親的缺席及無父之子的失落在小鎮若無似有隱現。眾人究竟該如何穿過記憶的海，抵達答案所在的彼端？",
-//     hashTag1: "#長篇小說",
-//     hashTag2: "#連載中",
-//     hashTag3: "#推理犯罪",
-//   },
-//   {
-//     img: ghostImg,
-//     title: "鬼地方",
-//     author: "陳思宏",
-//     content:
-//       "永靖對我來說，是個鬼地方，我一輩子都想逃離。陳家空廢，連篇鬼話。我們終究都活不出永靖這個小地方。視角切換，光怪陸離的崩壞眾生相逐遭披露，層層窺見家族的傷痕與醜陋、小鎮的祕密、時代的恐怖與無情。回到鬼地方的人怎麼面對難堪的過往？一個小地方又怎麼會變成了鬼地方？",
-//     hashTag1: "#長篇小說",
-//     hashTag2: "#連載中",
-//     hashTag3: "#文學/寫實",
-//   },
-// ];
+const products = [
+  {
+    img: dynastyImg,
+    title: "明朝",
+    author: "駱以軍",
+    content:
+      "「這是我的夢外之悲，或可稱之為：科幻版的《牡丹亭》。」機器人經歷上萬年、甚至數十萬年在無垠宇宙中的漂流，最後登陸某顆遙遠孤絕的行星。再以預存的大數據資料提煉這顆星球之金屬，開始複製與自己相同的機器人，重新啟動、覆蓋、繁殖那個曾經栩栩如生存在過 ，黑暗、變態、幻美，層層纏縛又渴望自由的文明——名為「明朝」之星球。",
+    hashTag1: "#長篇小說",
+    hashTag2: "#連載中",
+    hashTag3: "#科幻科技",
+  },
+  {
+    img: noDadImg,
+    title: "無父之城",
+    author: "陳雪",
+    content:
+      "這是一座父親缺席的城，一個人的消失與離開有各種可能與結果。有些祕密，你甚至對自己也不會說出口。父親的缺席及無父之子的失落在小鎮若無似有隱現。眾人究竟該如何穿過記憶的海，抵達答案所在的彼端？",
+    hashTag1: "#長篇小說",
+    hashTag2: "#連載中",
+    hashTag3: "#推理犯罪",
+  },
+  {
+    img: ghostImg,
+    title: "鬼地方",
+    author: "陳思宏",
+    content:
+      "永靖對我來說，是個鬼地方，我一輩子都想逃離。陳家空廢，連篇鬼話。我們終究都活不出永靖這個小地方。視角切換，光怪陸離的崩壞眾生相逐遭披露，層層窺見家族的傷痕與醜陋、小鎮的祕密、時代的恐怖與無情。回到鬼地方的人怎麼面對難堪的過往？一個小地方又怎麼會變成了鬼地方？",
+    hashTag1: "#長篇小說",
+    hashTag2: "#連載中",
+    hashTag3: "#文學/寫實",
+  },
+];
 </script>
 
 <style>

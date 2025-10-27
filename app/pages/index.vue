@@ -2,23 +2,7 @@
 <template>
   <div class="min-h-screen flex items-center justify-center bg-gray-200">
     <div>
-      <div class="grid grid-cols-3 -m-1.5">
-        <button
-          class="bg-blue-300 rounded-md px-3 py-1 m-2 cursor-pointer hover:bg-blue-200 text-white font-bold"
-        >
-          <NuxtLink to="/">代辦清單</NuxtLink>
-        </button>
-        <button
-          class="bg-blue-300 rounded-md px-3 py-1 m-2 cursor-pointer hover:bg-blue-200 text-white font-bold"
-        >
-          <NuxtLink to="/products">產品頁面</NuxtLink>
-        </button>
-        <button
-          class="bg-blue-300 rounded-md px-3 py-1 m-2 cursor-pointer hover:bg-blue-200 text-white font-bold"
-        >
-          <NuxtLink to="/products">投票頁面</NuxtLink>
-        </button>
-      </div>
+      <MenuBar />
       <div
         class="w-md h-170 text-center m-auto relative bg-white rounded-sm shadow-2xl px-5 mt-5 overflow-y-auto scrollbar-hide"
       >
@@ -42,13 +26,13 @@
           >
             <div class="flex items-center justify-center ml-2">
               <input
-                :id="'todo' + idx"
+                :id="'check' + idx"
                 v-model="item.done"
                 type="checkbox"
                 class="size-5 cursor-pointer"
                 @click="todoStore.doneItem(item.id)"
               />
-              <label :for="'todo' + idx">
+              <label :for="'check' + idx">
                 <del v-if="item.done" class="text-xl ml-3 text-gray-300">{{
                   item.text
                 }}</del>
