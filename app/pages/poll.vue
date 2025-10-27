@@ -38,6 +38,7 @@
           <UButton
             size="xl"
             class="bg-blue-300 mt-3 px-5 text-white cursor-pointer font-bold"
+            :disabled="hasVoted === true"
             @click="castVote(selectedBook)"
             >投票</UButton
           >
