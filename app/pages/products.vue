@@ -30,7 +30,7 @@
               <div class="bg-white py-9">
                 <img
                   class="w-full h-60 object-contain"
-                  :src="item.img"
+                  :src="base + item.img.replace(/^\/+/, '')"
                   :alt="item.title"
                 />
               </div>
@@ -101,17 +101,19 @@
 <script setup>
 import { ref, onMounted } from "vue";
 
-import { useHead } from "nuxt/app";
+import { useHead, useBase } from "nuxt/app";
 
-// import ghostImg from "~/assets/images/ghost.jpg";
-// import dynastyImg from "~/assets/images/dynasty.jpg";
-// import noDadImg from "~/assets/images/noDad.jpg";
+import ghostImg from "~/assets/images/ghost.jpg";
+import dynastyImg from "~/assets/images/dynasty.jpg";
+import noDadImg from "~/assets/images/noDad.jpg";
+
 const { data: productsData } = await useFetch("/api/products");
 
 const containerRef = ref(null);
 const slides = ref(Array.from({ length: 3 }));
 const swiper = useSwiper(containerRef, { loop: true });
 const chosenBook = ref(null);
+const base = useBase();
 
 onMounted(() => {
   console.log(swiper.instance);
