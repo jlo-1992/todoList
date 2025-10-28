@@ -15,7 +15,7 @@
 
         <hr />
         <p class="mt-2 text-right mr-3 text-gray-400">
-          共有 {{ undoneItem.length }} 個代辦事項
+          共有 {{ undoneItem.length }} 本待讀書籍
         </p>
         <ul>
           <li
@@ -65,15 +65,13 @@
           v-if="dialog.open"
           class="absolute p-7 h-45 w-80 rounded-md shadow-2xl z-200 bg-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
         >
-          <h1 class="font-bold text-2xl text-left">{{ action }}代辦事項</h1>
+          <h1 class="font-bold text-2xl text-left">{{ action }}待讀書籍</h1>
           <form @submit.prevent="addItem" @keydown.enter="addItem">
             <input
               v-model="input"
               type="text"
               class="border-2 border-gray-300 my-2 w-65 p-2 rounded-sm text-left"
-              :placeholder="
-                action === '編輯' ? editItem.text : '請輸入代辦事項'
-              "
+              :placeholder="action === '編輯' ? editItem.text : '請輸入書名'"
             />
             <div class="text-right">
               <button
