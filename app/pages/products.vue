@@ -113,8 +113,11 @@ import noDadImg from "~/assets/images/noDad.jpg";
 import deadImg from "~/assets/images/dead.jpg";
 import dearImg from "~/assets/images/dear.jpeg";
 import killerImg from "~/assets/images/killer.jpg";
+import { useTodoStore } from "../stores/todoStore";
 
 const productsStore = useProductsStore();
+const todoStore = useTodoStore();
+const { todoList } = storeToRefs(todoStore);
 const { chosenBook } = storeToRefs(productsStore);
 const containerRef = ref(null);
 // const slides = ref(Array.from({ length: 3 }));
@@ -126,8 +129,15 @@ onMounted(() => {
 
 const dialog = ref({ open: false });
 const openDialog = (item) => {
+  const bookTitle = item.title;
+  const bookInList = todoList.value.some((item) => item.text === bookTitle);
+
+  if (bookInList) {
+    alert("本書已在書櫃中，無法重複加入！");
+    return;
+  }
   dialog.value.open = true;
-  productsStore.setChosenBook(item.title);
+  productsStore.setChosenBook(bookTitle);
 };
 
 const closeDialog = () => {

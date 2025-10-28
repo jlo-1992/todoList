@@ -11,7 +11,7 @@
           @click="closeDialog()"
         />
 
-        <h1 class="text-3xl font-bold py-5 mt-5 text-white">書櫃</h1>
+        <h1 class="text-3xl font-bold py-5 mt-5 text-white">我的書櫃</h1>
 
         <hr class="text-white" />
         <p class="mt-2 text-right mr-3 text-white mb-3">
