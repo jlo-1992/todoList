@@ -34,7 +34,7 @@
                     </template>
                   </div>
                 </div>
-                <UProgress v-model="item.percent" />
+                <UProgress v-if="hasVoted === true" v-model="item.percent" />
               </div>
             </li>
           </ul>
@@ -63,25 +63,6 @@ const { totalVotes, booksWithPercent } = storeToRefs(pollStore);
 
 const hasVoted = ref(false);
 const selectedBook = ref(null);
-// const totalVotes = computed(() => {
-//   return books.value.reduce((totalVotes, book) => totalVotes + book.votes, 0);
-// });
-
-// const castVote = (selectedBook) => {
-//   if (!selectedBook) {
-//     alert("請選擇一本你喜歡的本月書籍");
-//     return;
-//   }
-
-//   const targetBook = books.value.find((item) => item.title === selectedBook);
-
-//   if (targetBook) {
-//     hasVoted.value = true;
-//     targetBook.votes++;
-//     const currentTotalVotes = totalVotes.value;
-//     targetBook.value = Math.round((targetBook.votes / currentTotalVotes) * 100);
-//   }
-// };
 
 const castVote = (bookTitle) => {
   if (!bookTitle) {
