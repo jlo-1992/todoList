@@ -84,12 +84,18 @@
         《{{ chosenBook }}》 已加入書櫃
       </h1>
       <div class="text-center mt-5">
-        <button
-          class="rounded-md px-3 py-1 cursor-pointer hover:bg-gray-200 hover:text-white text-gray-300 font-bold"
+        <UButton
+          class="rounded-md px-3 py-1 cursor-pointer hover:bg-gray-200 hover:text-white text-gray-300 font-bold bg-white mr-1"
           @click="closeDialog()"
         >
           確定
-        </button>
+        </UButton>
+        <UButton
+          class="rounded-md px-3 py-1 cursor-pointer hover:bg-blue-300 hover:text-white font-bold bg-white text-blue-200"
+          to="/"
+        >
+          查看書櫃
+        </UButton>
       </div>
     </div>
   </div>
@@ -97,7 +103,8 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
-
+import { useProductsStore } from "~/stores/productsStore";
+import { storeToRefs } from "pinia";
 import { useHead } from "nuxt/app";
 
 import ghostImg from "~/assets/images/ghost.jpg";
@@ -107,10 +114,11 @@ import deadImg from "~/assets/images/dead.jpg";
 import dearImg from "~/assets/images/dear.jpeg";
 import killerImg from "~/assets/images/killer.jpg";
 
+const productsStore = useProductsStore();
+const { chosenBook } = storeToRefs(productsStore);
 const containerRef = ref(null);
 // const slides = ref(Array.from({ length: 3 }));
 const swiper = useSwiper(containerRef);
-const chosenBook = ref(null);
 
 onMounted(() => {
   console.log(swiper.instance);
@@ -119,8 +127,9 @@ onMounted(() => {
 const dialog = ref({ open: false });
 const openDialog = (item) => {
   dialog.value.open = true;
-  chosenBook.value = item.title;
+  productsStore.setChosenBook(item.title);
 };
+
 const closeDialog = () => {
   dialog.value.open = false;
 };
