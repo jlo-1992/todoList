@@ -92,7 +92,7 @@
         </div>
       </div>
       <button
-        class="absolute text-2xl rounded-full bg-blue-300 cursor-pointer text-white font-bold bottom-23 left-1/2 -translate-x-1/2 p-3 px-5 shadow-2xl z-200"
+        class="absolute text-2xl rounded-full bg-blue-300 cursor-pointer text-white font-bold left-1/2 bottom-18 -translate-x-1/2 p-3 px-5 shadow-2xl z-200"
         :class="dialog.open ? 'bg-green-400' : 'bg-blue-300'"
         @click="openDialog('新增')"
       >
@@ -114,8 +114,6 @@ const undoneItem = computed(() => todoList.value.filter((item) => !item.done));
 const action = ref(null);
 const input = ref("");
 const editItem = ref(null);
-
-const check = "check";
 
 const dialog = ref({ open: false });
 const openDialog = (move, item = null) => {

@@ -49,12 +49,12 @@
 </template>
 
 <script setup>
-const dynastyvalue = ref(0);
-const noDadvalue = ref(0);
-const ghostvalue = ref(0);
-const dynasty2value = ref(0);
-const noDad2value = ref(0);
-const ghost2value = ref(0);
+const dynastyValue = ref(0);
+const noDadValue = ref(0);
+const ghostValue = ref(0);
+const killerValue = ref(0);
+const deadValue = ref(0);
+const dearValue = ref(0);
 
 const totalVotes = ref(0);
 const hasVoted = ref(false);
@@ -81,37 +81,37 @@ const books = ref([
   {
     title: "明朝",
     author: "駱以軍",
-    value: dynastyvalue,
+    value: dynastyValue,
     votes: 0,
   },
   {
     title: "無父之城",
     author: "陳雪",
-    value: noDadvalue,
+    value: noDadValue,
     votes: 0,
   },
   {
     title: "鬼地方",
     author: "陳思宏",
-    value: ghostvalue,
+    value: ghostValue,
     votes: 0,
   },
   {
-    title: "明朝",
-    author: "駱以軍",
-    value: dynasty2value,
+    title: "殺手的戀愛相談",
+    author: "謝東霖",
+    value: killerValue,
     votes: 0,
   },
   {
-    title: "無父之城",
+    title: "你不能再死一次",
     author: "陳雪",
-    value: noDad2value,
+    value: deadValue,
     votes: 0,
   },
   {
-    title: "鬼地方",
-    author: "陳思宏",
-    value: ghost2value,
+    title: "親愛的共犯",
+    author: "陳雪",
+    value: dearValue,
     votes: 0,
   },
 ]);

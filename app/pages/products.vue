@@ -103,6 +103,9 @@ import { useHead } from "nuxt/app";
 import ghostImg from "~/assets/images/ghost.jpg";
 import dynastyImg from "~/assets/images/dynasty.jpg";
 import noDadImg from "~/assets/images/noDad.jpg";
+import deadImg from "~/assets/images/dead.jpg";
+import dearImg from "~/assets/images/dear.jpeg";
+import killerImg from "~/assets/images/killer.jpg";
 
 const containerRef = ref(null);
 // const slides = ref(Array.from({ length: 3 }));
@@ -158,31 +161,31 @@ const products = [
     hashTag3: "#文學/寫實",
   },
   {
-    img: dynastyImg,
-    title: "明朝",
-    author: "駱以軍",
+    img: killerImg,
+    title: "殺手的戀愛相談",
+    author: "謝東霖",
     content:
-      "「這是我的夢外之悲，或可稱之為：科幻版的《牡丹亭》。」機器人經歷上萬年、甚至數十萬年在無垠宇宙中的漂流，最後登陸某顆遙遠孤絕的行星。再以預存的大數據資料提煉這顆星球之金屬，開始複製與自己相同的機器人，重新啟動、覆蓋、繁殖那個曾經栩栩如生存在過 ，黑暗、變態、幻美，層層纏縛又渴望自由的文明——名為「明朝」之星球。",
-    hashTag1: "#長篇小說",
-    hashTag2: "#連載中",
-    hashTag3: "#科幻科技",
+      "好想談場普通的戀愛 像ATM領把槍一樣普通的戀愛——一點都不普通啊！ 上下冊一次推出，收錄獨家番外大結局！",
+    hashTag1: "#條漫/頁漫",
+    hashTag2: "#完結",
+    hashTag3: "#愛情",
   },
   {
-    img: noDadImg,
-    title: "無父之城",
+    img: deadImg,
+    title: "你不能再死一次",
     author: "陳雪",
     content:
-      "這是一座父親缺席的城，一個人的消失與離開有各種可能與結果。有些祕密，你甚至對自己也不會說出口。父親的缺席及無父之子的失落在小鎮若無似有隱現。眾人究竟該如何穿過記憶的海，抵達答案所在的彼端？",
+      "最恐怖的遺棄，是在精心布置之後，把你獨自留在原地。桃花盛開的時節瀰漫著血色，相隔十四年的殺人棄屍案重現小鎮，被丟在樹下的少女們長出滿樹的衣裙鞋襪，這是她們最後一次的展覽……那次的我，沒有好好活下來，只能在被世界遺棄以前，自己長出自己。",
     hashTag1: "#長篇小說",
     hashTag2: "#連載中",
     hashTag3: "#推理犯罪",
   },
   {
-    img: ghostImg,
-    title: "鬼地方",
-    author: "陳思宏",
+    img: dearImg,
+    title: "親愛的共犯",
+    author: "陳雪",
     content:
-      "永靖對我來說，是個鬼地方，我一輩子都想逃離。陳家空廢，連篇鬼話。我們終究都活不出永靖這個小地方。視角切換，光怪陸離的崩壞眾生相逐遭披露，層層窺見家族的傷痕與醜陋、小鎮的祕密、時代的恐怖與無情。回到鬼地方的人怎麼面對難堪的過往？一個小地方又怎麼會變成了鬼地方？",
+      "當摯愛雙手染血，你是否願意奮不顧身成為共犯？我覺得悲傷也覺得幸福，世上還有人願意陪我走進地獄裡，地獄成了我們可以重逢的地方……豪宅裡、山腳下，時隔多年的兩個黑夜，怎麼改變了兩個「家」？",
     hashTag1: "#長篇小說",
     hashTag2: "#連載中",
     hashTag3: "#文學/寫實",

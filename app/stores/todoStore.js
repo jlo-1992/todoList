@@ -51,6 +51,7 @@ export const useTodoStore = defineStore(
   },
   {
     persist: {
+      storage: piniaPluginPersistedstate.localStorage(),
       key: "todoList",
       pick: ["todoList"],
     },
