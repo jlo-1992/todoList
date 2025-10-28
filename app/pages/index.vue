@@ -11,7 +11,7 @@
           @click="closeDialog()"
         />
 
-        <h1 class="text-3xl font-bold py-5 mt-5">代辦清單</h1>
+        <h1 class="text-3xl font-bold py-5 mt-5">待讀書籍</h1>
 
         <hr />
         <p class="mt-2 text-right mr-3 text-gray-400">
@@ -146,7 +146,7 @@ const addItem = () => {
 };
 
 useHead({
-  title: "首頁",
+  title: "待讀",
 });
 </script>
 

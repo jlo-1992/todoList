@@ -5,11 +5,15 @@
       <div
         class="w-md h-170 text-center m-auto relative bg-blue-300 rounded-sm shadow-2xl px-5 mt-5 overflow-y-auto scrollbar-hide"
       >
-        <h1 class="text-3xl font-bold py-5 mt-5 text-white">本月一書</h1>
+        <h1 class="text-3xl font-bold py-5 mt-5 text-white">每月一書</h1>
         <hr class="text-white" />
         <div class="bg-white rounded-xl shadow-2xl p-9 mt-6">
           <ul>
-            <li v-for="(item, idx) in books" :key="idx" class="my-1 py-2">
+            <li
+              v-for="(item, idx) in booksWithPercent"
+              :key="idx"
+              class="my-1 py-2"
+            >
               <div>
                 <div class="mb-2 flex justify-between">
                   <label class="text-xl font-bold" :for="item.title"
@@ -20,17 +24,17 @@
                       v-if="hasVoted === false"
                       :id="item.title"
                       v-model="selectedBook"
-                      name="bestOfTheMonth"
+                      name="poll"
                       type="radio"
                       :value="item.title"
                     />
                     <template v-else>
-                      <h1>{{ item.value }}%</h1>
+                      <h1>{{ item.percent }}%</h1>
                       <h2 class="text-gray-400 ml-1">( {{ item.votes }} 票)</h2>
                     </template>
                   </div>
                 </div>
-                <UProgress v-model="item.value" />
+                <UProgress v-model="item.percent" />
               </div>
             </li>
           </ul>
@@ -49,70 +53,47 @@
 </template>
 
 <script setup>
-const dynastyValue = ref(0);
-const noDadValue = ref(0);
-const ghostValue = ref(0);
-const killerValue = ref(0);
-const deadValue = ref(0);
-const dearValue = ref(0);
+import { ref } from "vue";
+import { usePollStore } from "~/stores/pollStore";
+import { storeToRefs } from "pinia";
+import { useHead } from "nuxt/app";
 
-const totalVotes = ref(0);
+const pollStore = usePollStore();
+const { totalVotes, booksWithPercent } = storeToRefs(pollStore);
+
 const hasVoted = ref(false);
 const selectedBook = ref(null);
+// const totalVotes = computed(() => {
+//   return books.value.reduce((totalVotes, book) => totalVotes + book.votes, 0);
+// });
 
-const castVote = (book) => {
-  if (!book) {
+// const castVote = (selectedBook) => {
+//   if (!selectedBook) {
+//     alert("請選擇一本你喜歡的本月書籍");
+//     return;
+//   }
+
+//   const targetBook = books.value.find((item) => item.title === selectedBook);
+
+//   if (targetBook) {
+//     hasVoted.value = true;
+//     targetBook.votes++;
+//     const currentTotalVotes = totalVotes.value;
+//     targetBook.value = Math.round((targetBook.votes / currentTotalVotes) * 100);
+//   }
+// };
+
+const castVote = (bookTitle) => {
+  if (!bookTitle) {
     alert("請選擇一本你喜歡的本月書籍");
     return;
   }
-
-  const targetIndex = books.value.findIndex(
-    (item) => item.title === selectedBook.value
-  );
-
-  if (targetIndex > -1) {
-    hasVoted.value = true;
-    books.value[targetIndex].votes++;
-    totalVotes.value++;
-  }
+  hasVoted.value = true;
+  pollStore.castVote(bookTitle);
+  selectedBook.value = null;
 };
 
-const books = ref([
-  {
-    title: "明朝",
-    author: "駱以軍",
-    value: dynastyValue,
-    votes: 0,
-  },
-  {
-    title: "無父之城",
-    author: "陳雪",
-    value: noDadValue,
-    votes: 0,
-  },
-  {
-    title: "鬼地方",
-    author: "陳思宏",
-    value: ghostValue,
-    votes: 0,
-  },
-  {
-    title: "殺手的戀愛相談",
-    author: "謝東霖",
-    value: killerValue,
-    votes: 0,
-  },
-  {
-    title: "你不能再死一次",
-    author: "陳雪",
-    value: deadValue,
-    votes: 0,
-  },
-  {
-    title: "親愛的共犯",
-    author: "陳雪",
-    value: dearValue,
-    votes: 0,
-  },
-]);
+useHead({
+  title: "每月一書",
+});
 </script>
