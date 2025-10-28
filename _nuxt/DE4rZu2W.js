@@ -1,1 +1,0 @@
-import{H as s,I as r,r as t}from"#entry";const l=s("products",()=>{const o=t(null);return{chosenBook:o,setChosenBook:e=>{o.value=e},clearChosenBook:()=>{o.value=null}}},{persist:{storage:r.localStorage(),key:"products",pick:["chosenBook"]}});export{l as u};
