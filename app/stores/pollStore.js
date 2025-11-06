@@ -1,5 +1,11 @@
 import { defineStore } from "pinia";
 import { ref, computed } from "vue";
+import dynastyImg from "~/assets/images/dynasty.jpg";
+import noDadImg from "~/assets/images/noDad.jpg";
+import ghostImg from "~/assets/images/ghost.jpg";
+import killerImg from "~/assets/images/killer.jpg";
+import deadImg from "~/assets/images/dead.jpg";
+import dearImg from "~/assets/images/dear.jpeg";
 
 export const usePollStore = defineStore(
   "poll",
@@ -9,31 +15,37 @@ export const usePollStore = defineStore(
         title: "明朝",
         author: "駱以軍",
         votes: 0,
+        image: dynastyImg,
       },
       {
         title: "無父之城",
         author: "陳雪",
         votes: 0,
+        image: noDadImg,
       },
       {
         title: "鬼地方",
         author: "陳思宏",
         votes: 0,
+        image: ghostImg,
       },
       {
         title: "殺手的戀愛相談",
         author: "謝東霖",
         votes: 0,
+        image: killerImg,
       },
       {
         title: "你不能再死一次",
         author: "陳雪",
         votes: 0,
+        image: deadImg,
       },
       {
         title: "親愛的共犯",
         author: "陳雪",
         votes: 0,
+        image: dearImg,
       },
     ]);
 

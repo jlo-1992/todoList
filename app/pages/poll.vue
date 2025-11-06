@@ -10,15 +10,24 @@
         <div class="bg-white rounded-xl shadow-2xl p-9 mt-6">
           <ul>
             <li
-              v-for="(item, idx) in booksWithPercent"
-              :key="idx"
+              v-for="(item, index) in booksWithPercent"
+              :key="index"
               class="my-1 py-2"
             >
               <div>
                 <div class="mb-2 flex justify-between">
-                  <label class="text-xl font-bold" :for="item.title"
+                  <label
+                    class="text-xl font-bold"
+                    :for="item.title"
+                    @click="() => showImg(index)"
                     >《{{ item.title }}》</label
                   >
+                  <VueEasyLightbox
+                    :visible="visibleRef"
+                    :imgs="item.image"
+                    :index="indexRef"
+                    @hide="onHide"
+                  />
                   <div class="flex justify-between items-center">
                     <input
                       v-if="hasVoted === false"
@@ -27,6 +36,7 @@
                       name="poll"
                       type="radio"
                       :value="item.title"
+                      class="cursor-pointer"
                     />
                     <template v-else>
                       <h1>{{ item.percent }}%</h1>
@@ -73,6 +83,15 @@ const castVote = (bookTitle) => {
   pollStore.castVote(bookTitle);
   selectedBook.value = null;
 };
+
+const visibleRef = ref(false);
+const indexRef = ref(0);
+
+const showImg = (index) => {
+  indexRef.value = index;
+  visibleRef.value = true;
+};
+const onHide = () => (visibleRef.value = false);
 
 useHead({
   title: "每月一書",

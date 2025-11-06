@@ -9,7 +9,7 @@ export const useTodoStore = defineStore(
 
     const addItem = (item) => {
       todoList.value.push({
-        id: id++,
+        id: Date.now(),
         done: false,
         text: item,
       });

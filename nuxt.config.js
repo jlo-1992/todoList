@@ -15,6 +15,7 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "pinia-plugin-persistedstate/nuxt",
     "@nuxt/image",
+    "nuxt-easy-lightbox",
   ],
   css: ["~/assets/css/main.css"],
   vite: {

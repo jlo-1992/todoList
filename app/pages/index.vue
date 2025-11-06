@@ -20,19 +20,19 @@
         <div class="bg-white pt-1 px-3 h-125 rounded-xl">
           <ul>
             <li
-              v-for="(item, idx) in todoList"
-              :key="idx"
+              v-for="item in todoList"
+              :key="item.id"
               class="flex justify-between mt-5 items-center"
             >
               <div class="flex items-center justify-center ml-2">
                 <input
-                  :id="'check' + idx"
+                  :id="'check' + item.id"
                   v-model="item.done"
                   type="checkbox"
                   class="size-5 cursor-pointer"
                   @click="todoStore.doneItem(item.id)"
                 />
-                <label :for="'check' + idx">
+                <label :for="'check' + item.id" class="cursor-pointer">
                   <del v-if="item.done" class="text-xl ml-3 text-gray-300"
                     >《{{ item.text }}》</del
                   >
@@ -151,6 +151,7 @@ const addItem = () => {
 onMounted(() => {
   if (productsStore.chosenBook) {
     todoStore.addItem(productsStore.chosenBook);
+    productsStore.chosenBook = null;
   }
 });
 
